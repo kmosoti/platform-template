@@ -1,0 +1,12 @@
+{
+  "schema": "platform.ledger-checkpoint/v1",
+  "fixture_mode": true,
+  "stream_id": "platform-attestations-v1",
+  "ledger_len": 5,
+  "head_record_hash": "sha256:60e9d4053c6ef1826b850718bee36247b8726f6a182f2430e210514a373e26ce",
+  "checkpoint_epoch_s": 1794999000,
+  "max_staleness_s": 86400,
+  "policy_version": 1,
+  "key_id": "checkpoint-authority",
+  "signature": "b69f27ae649e32ab1f6afbd5049a3ea5204511093756683572a3f751de6f4dfbf702e3fcc0dfcc03e63f297b2ccbdf67c3d70730344a0d35efc9c994f4b41209"
+}

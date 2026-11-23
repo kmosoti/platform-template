@@ -1,0 +1,9 @@
+{
+  "schema": "platform.target/v1",
+  "domain": "prod",
+  "generation": 1,
+  "expected_observed_generation": 1,
+  "engine_digest": "sha256:26efcde9cace4236e9ce6fca2f0b0b18606e9c58d7d17f90c934431423cab328",
+  "engine_config_digest": "sha256:127603b0da9b784e43322a56f0ac1314b596496e50f93368bfe275ed231b1ce8",
+  "domain_config_digest": "sha256:dcee3869c8ce2dd0f1a8151621a8f8e52890575c6b7dda53efe1f2da18bced4a"
+}

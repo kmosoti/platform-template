@@ -1,0 +1,66 @@
+{
+  "schema": "platform.trust-root/v1",
+  "trust_mode": "fixture-demo",
+  "fixture_mode": true,
+  "verifiers": [
+    {
+      "key_id": "ci-sim-bot",
+      "algorithm": "ed25519",
+      "public_key_hex": "f75f59416fbe68ce7248d42fa8b28a2cf9c107f0764547bf45537cbdc8876e6a",
+      "allowed_predicates": [
+        "sim_passed"
+      ],
+      "allowed_domains": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "can_sign_checkpoints": false
+    },
+    {
+      "key_id": "dev-reconciler",
+      "algorithm": "ed25519",
+      "public_key_hex": "ae6eb295c93b1195b97bd19efd422f2d2018daaf39d1ddef14f11558bc57b11b",
+      "allowed_predicates": [
+        "dev_converged"
+      ],
+      "allowed_domains": [
+        "dev"
+      ],
+      "can_sign_checkpoints": false
+    },
+    {
+      "key_id": "staging-soak-observer",
+      "algorithm": "ed25519",
+      "public_key_hex": "49c3ef226f42137a1d14bdc8c5020f75307e07a2523c75e0c00b81a0b6e1aaf5",
+      "allowed_predicates": [
+        "soak_within_bounds"
+      ],
+      "allowed_domains": [
+        "staging"
+      ],
+      "can_sign_checkpoints": false
+    },
+    {
+      "key_id": "prod-release-approver",
+      "algorithm": "ed25519",
+      "public_key_hex": "31f53ae041b904048ac926d00e57cc003bb64f4192c74f5b81034aea4fd6f99e",
+      "allowed_predicates": [
+        "policy_signed",
+        "revoked"
+      ],
+      "allowed_domains": [
+        "prod"
+      ],
+      "can_sign_checkpoints": false
+    },
+    {
+      "key_id": "checkpoint-authority",
+      "algorithm": "ed25519",
+      "public_key_hex": "ea18d586ce77dbd5a22b34ea04f8af20d6f1b7d3fd6ebd80f0df0636818ac852",
+      "allowed_predicates": [],
+      "allowed_domains": [],
+      "can_sign_checkpoints": true
+    }
+  ]
+}

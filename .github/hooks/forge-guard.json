@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "cwd": ".",
+        "bash": "cargo run --quiet --package xtask -- hook pre-tool-use --format copilot",
+        "powershell": "cargo run --quiet --package xtask -- hook pre-tool-use --format copilot"
+      }
+    ]
+  }
+}

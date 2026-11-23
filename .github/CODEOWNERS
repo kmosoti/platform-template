@@ -1,0 +1,8 @@
+# Template CODEOWNERS (inactive by default so fresh template clones have zero invalid-owner errors).
+# After instantiating this repository, add real GitHub @user or @org/team handles below, then
+# optionally enable enforcement via `cargo xtask github-setup <OWNER/REPO> --require-codeowners`.
+#
+# * @your-github-handle
+# /domains/prod/ @your-github-handle
+# /attestations/ @your-github-handle
+# /trust/ @your-github-handle

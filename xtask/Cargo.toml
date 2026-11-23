@@ -1,0 +1,21 @@
+[package]
+name = "xtask"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
+description = "Pure-Rust verification, simulation, promotion, release import, hook, and GitHub governance CLI"
+
+[lints]
+workspace = true
+
+[dependencies]
+ed25519-dalek.workspace = true
+flate2.workspace = true
+platform-kernel.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tar.workspace = true

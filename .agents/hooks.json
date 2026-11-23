@@ -1,0 +1,15 @@
+{
+  "platform-forge-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cargo run --manifest-path ../Cargo.toml --package xtask --locked --quiet -- hook pre-tool-use --format antigravity"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "platform-forge",
+  "displayName": "Platform Forge",
+  "version": "0.1.0",
+  "description": "Multi-domain platform governance plugin enforcing tuple digests, expand-contract continuity, hash-chained attestations, and capability-scoped OIDC execution",
+  "suggestedPrompts": [
+    "Simulate all concurrent failure domains and summarize the reconciliation plan",
+    "Verify state continuity and required attestations before promoting an engine digest"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "platform.observation/v1",
+  "fixture_mode": true,
+  "domain": "dev",
+  "generation": 2,
+  "membership_epoch": 1,
+  "engine_digest": "sha256:26efcde9cace4236e9ce6fca2f0b0b18606e9c58d7d17f90c934431423cab328",
+  "engine_config_digest": "sha256:127603b0da9b784e43322a56f0ac1314b596496e50f93368bfe275ed231b1ce8",
+  "domain_config_digest": "sha256:d235a5e923fe896ab72d720b6b801838b2b068a643d21ec8bd2201a142b0bcd2",
+  "min_active_reader_format": 2,
+  "min_shard_state_format": 2,
+  "max_shard_state_format": 2,
+  "total_shards": 2,
+  "migrated_shards": 2,
+  "max_observed_consumed_units": 20,
+  "converged": true
+}

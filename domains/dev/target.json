@@ -1,0 +1,9 @@
+{
+  "schema": "platform.target/v1",
+  "domain": "dev",
+  "generation": 3,
+  "expected_observed_generation": 2,
+  "engine_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "engine_config_digest": "sha256:127603b0da9b784e43322a56f0ac1314b596496e50f93368bfe275ed231b1ce8",
+  "domain_config_digest": "sha256:d235a5e923fe896ab72d720b6b801838b2b068a643d21ec8bd2201a142b0bcd2"
+}

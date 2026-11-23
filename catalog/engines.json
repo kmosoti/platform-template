@@ -1,0 +1,68 @@
+{
+  "schema": "platform.engine-catalog/v1",
+  "engines": [
+    {
+      "engine_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "binary_digest": "sha256:aaaa111111111111111111111111111111111111111111111111111111111111",
+      "compatibility_digest": "sha256:bbbb111111111111111111111111111111111111111111111111111111111111",
+      "service_name": "admission-engine",
+      "version": "0.0.9",
+      "target": "linux-x86_64",
+      "config_schema_version": 1,
+      "state_format_version": 1,
+      "min_readable_state_format": 1,
+      "oldest_writable_state_format": 1,
+      "transition_mode": "reversible",
+      "preserved_state_fields": [
+        "window_epoch_ms",
+        "consumed_units",
+        "last_sequence"
+      ],
+      "provenance_status": "unverified_local",
+      "provenance_digest": null,
+      "fixture_only": true
+    },
+    {
+      "engine_digest": "sha256:26efcde9cace4236e9ce6fca2f0b0b18606e9c58d7d17f90c934431423cab328",
+      "binary_digest": "sha256:c8d6e9b1f2f1e21d08d116d1daa761bbfae724032ef6e9f3c842c48db2fc60c4",
+      "compatibility_digest": "sha256:d39a7a57a24d3748b9860adfbbf0b3c42d6bde2b0a4fc33413a87cff44ec28df",
+      "service_name": "admission-engine",
+      "version": "0.1.0",
+      "target": "linux-x86_64",
+      "config_schema_version": 1,
+      "state_format_version": 2,
+      "min_readable_state_format": 1,
+      "oldest_writable_state_format": 1,
+      "transition_mode": "expand",
+      "preserved_state_fields": [
+        "window_epoch_ms",
+        "consumed_units",
+        "last_sequence"
+      ],
+      "provenance_status": "unverified_local",
+      "provenance_digest": null,
+      "fixture_only": false
+    },
+    {
+      "engine_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "binary_digest": "sha256:aaaa333333333333333333333333333333333333333333333333333333333333",
+      "compatibility_digest": "sha256:bbbb333333333333333333333333333333333333333333333333333333333333",
+      "service_name": "admission-engine",
+      "version": "0.2.0",
+      "target": "linux-x86_64",
+      "config_schema_version": 1,
+      "state_format_version": 2,
+      "min_readable_state_format": 2,
+      "oldest_writable_state_format": 2,
+      "transition_mode": "contract",
+      "preserved_state_fields": [
+        "window_epoch_ms",
+        "consumed_units",
+        "last_sequence"
+      ],
+      "provenance_status": "unverified_local",
+      "provenance_digest": null,
+      "fixture_only": true
+    }
+  ]
+}

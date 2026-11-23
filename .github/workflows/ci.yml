@@ -1,0 +1,46 @@
+name: CI Gates
+
+on:
+  push:
+    branches: [main, develop-agent]
+  pull_request:
+    branches: [main, develop-agent]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  gates:
+    name: gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+          components: rustfmt, clippy
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      - name: Run full verification suite
+        run: cargo xtask verify --force
+
+      - name: Simulate all failure domains
+        run: cargo xtask simulate --domain all
+
+      - name: Upload verification & reconcile receipts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: platform-verification-evidence
+          path: evidence/*.json
+          if-no-files-found: error

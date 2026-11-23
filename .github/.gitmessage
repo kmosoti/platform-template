@@ -1,0 +1,9 @@
+# <type>(<scope>): <imperative summary <= 72 chars>
+#
+# Types: feat | fix | refactor | docs | test | chore
+# Scopes: domain | kernel | ledger | catalog | xtask | knowledge | ci
+#
+# Why is this platform transition safe?
+# - Tuple: (engine_digest, config_digest)
+# - Migration phase: steady | expand | contract
+# - Attestations verified: sim_passed | dev_converged | soak_within_bounds | policy_signed

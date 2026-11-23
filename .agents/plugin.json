@@ -1,0 +1,6 @@
+{
+  "name": "platform-template-workspace",
+  "displayName": "Platform Template Workspace",
+  "version": "0.1.0",
+  "description": "Workspace skills and PreToolUse governance hooks for platform-template"
+}

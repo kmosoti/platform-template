@@ -1,0 +1,23 @@
+{
+  "schema": "platform.domain-config/v1",
+  "domain": "prod",
+  "replicas": 3,
+  "telemetry_endpoint": "https://otel.prod.example.internal:4318",
+  "allowed_secret_providers": [
+    "gcp-sm",
+    "aws-sm",
+    "vault",
+    "age-kms"
+  ],
+  "secrets": {
+    "audit_hmac_key": "secretref://gcp-sm/prod/admission-audit-hmac#v1",
+    "telemetry_api_token": "secretref://gcp-sm/prod/admission-telemetry-token#v1"
+  },
+  "engine_config": {
+    "config_schema_version": 1,
+    "window_ms": 1000,
+    "max_units_per_window": 100,
+    "max_burst_units": 25,
+    "state_write_version": 2
+  }
+}

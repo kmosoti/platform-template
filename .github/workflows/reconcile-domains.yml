@@ -1,0 +1,135 @@
+name: Reconcile Failure Domains
+
+on:
+  push:
+    branches: [main, develop-agent]
+  pull_request:
+    branches: [main, develop-agent]
+  workflow_dispatch:
+
+concurrency:
+  group: platform-reconcile-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  simulate:
+    name: simulate-all-domains
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+          components: rustfmt, clippy
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      - name: Verify invariants and compute deterministic reconcile plan
+        run: |
+          cargo xtask verify --force
+          cargo xtask simulate --domain all --mode simulate
+
+      - name: Upload deterministic reconcile plan
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: reconcile-plan
+          path: evidence/reconcile-plan.json
+          if-no-files-found: error
+
+  simulate-dev:
+    name: simulate-reconcile (dev)
+    needs: [simulate]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      # Template default emits a per-domain simulation prediction (`live_convergence_proven: false`).
+      # When connected to an external state store and OIDC JWKS exchange adapter, switch to:
+      #   cargo xtask simulate --domain dev --mode live \
+      #     --observations-dir /run/platform/observations \
+      #     --trust-root /etc/platform/verifiers.json \
+      #     --ledger-file /run/platform/ledger.json \
+      #     --trusted-checkpoint /run/platform/checkpoint.json \
+      #     --oidc-claims-file /run/platform/oidc-claims.json \
+      #     --oidc-audience sts.platform.internal \
+      #     --oidc-repo "${{ github.repository }}"
+      - name: Emit dev simulation prediction under main-scoped dev Environment
+        run: cargo xtask simulate --domain dev --mode simulate --out evidence/sim-dev-prediction.json
+
+      - name: Attest dev simulation prediction provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: evidence/sim-dev-prediction.json
+
+  simulate-staging:
+    name: simulate-reconcile (staging)
+    needs: [simulate-dev]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: staging
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      - name: Evaluate staging domain under main-only + human-approved staging Environment
+        run: cargo xtask simulate --domain staging --mode simulate
+
+  simulate-prod:
+    name: simulate-reconcile (prod)
+    needs: [simulate-staging]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      - name: Evaluate prod domain under main-only + human-approved prod Environment
+        run: cargo xtask simulate --domain prod --mode simulate

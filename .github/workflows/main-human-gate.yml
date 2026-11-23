@@ -1,0 +1,35 @@
+name: Main Human Promotion Gate
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  approve-main-promotion:
+    name: main-release-gate
+    runs-on: ubuntu-latest
+    environment: main-release
+    steps:
+      - name: Checkout PR merge preview
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install pinned Rust 1.100.0 toolchain
+        uses: dtolnay/rust-toolchain@df2a88e9fe4098bad09cb42c3dec7187f15861fc
+        with:
+          toolchain: "1.100.0"
+          components: rustfmt, clippy
+
+      - name: Restore Rust build cache
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+
+      - name: Preview multi-domain reconciliation plan approved for main
+        run: cargo xtask simulate --domain all
